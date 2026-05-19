@@ -519,13 +519,21 @@ if st.button("Predict"):
         #st.write(grouped_df.columns.tolist())
         #st.write("Total =", total)
 
-@st.cache_resource
-def train_model():
-    model = LinearRegression()
-    model.fit(X, y)
-    return model
+#@st.cache_resource
+#def train_model():
+#    model = LinearRegression()
+#    model.fit(X, y)
+#    return model
 
-model = train_model()
+#model = train_model()
+
+st.write("****Tableau Dashboard***")
+st.write("------------------------------------")
+st.write("*****PRAVEENKUMAR MOPURU*****")
+st.write("*****Data Analyst Intern*****")
+st.write("*****25th March 2026 Batch*****")
+st.write("------------------------------------")
+
 
 #This automatically restricts input to integers and avoids
 # Date range selector
