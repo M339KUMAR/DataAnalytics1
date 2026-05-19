@@ -1,0 +1,568 @@
+# Date                                               
+# Children apprehended and placed in CBP custody       
+# Children in CBP custody                              
+# Children transferred out of CBP custody             
+# Children in HHS Care                               
+# Children discharged from HHS Care 
+ 
+
+import streamlit as st
+import pandas as pd
+import openpyxl
+import matplotlib.pyplot as plt
+from ydata_profiling import ProfileReport
+#from data_profiling.profile_report import ProfileReport
+import streamlit.components.v1 as components
+
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+st.set_page_config(layout="wide")
+
+#df = pd.read_excel('/content/sample_data/HHS_Unaccompanied_Alien_Children_Program.xlsx')
+df = pd.read_excel('HHS_Unaccompanied_Alien_Children_Program.xlsx', engine='openpyxl')
+
+#st.title("Hello from Colab via ngrok")
+#st.write("This works!")
+
+#st.title("Unified Mentor")
+
+st.markdown("<h1 style='text-align: center;'>UNIFIED MENTOR</h1>", unsafe_allow_html=True)
+st.markdown("<h2 style='text-align: center;'> Data Analytics Intern</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='text-align: center;'> Project-1</h2>", unsafe_allow_html=True)
+st.write("***📌US-HHS Unaccompanied Children Program  Dashboard***")
+
+st.dataframe(df)
+
+st.write("***EXPLORATORY DATA ANALYSIS***")
+try:
+   #from ydata_profiling import ProfileReport
+   report = ProfileReport(df, explorative=True)
+   # Save report
+   #profile.to_file("report.html")
+   html = report.to_html()
+
+   # Read HTML file
+   #with open("report.html", "r", encoding="utf-8") as f:
+   #     html = f.read()
+
+   # Display in Streamlit
+   components.html(html, height=1000, scrolling=True)
+except ValueError: 
+   st.write("Issue in Report Generation:")
+finally :
+   st.write("Report Generating...")
+
+#st.dataframe(df['Date'])
+st.title("📊 HHS Care System Dashboard")
+
+col1, col2 = st.columns([0.75, 5])
+
+with col1:
+    # Create a Matplotlib figure
+    #st.pyplot(fig)
+    if st.button("Plot-1"):
+       fig, ax = plt.subplots()
+       ax.plot(df['Date'], df['Children in CBP custody'], color='orange', linestyle='--', label="Children in CBP Custody")
+       ax.set_title("Children in CBP Custody")
+       ax.set_xlabel("Date")
+       ax.set_ylabel("CBP Custidy")
+       ax.tick_params(axis='x', rotation=45)
+       ax.legend()
+       st.pyplot(fig)
+
+with col2:
+    st.write("Click the PLOT Button to Display the Graph")
+
+# Convert datetime
+df['Date'] = pd.to_datetime(df['Date'])
+
+# Sort from oldest to newest
+df = df.sort_values(by='Date', ascending=True)
+
+col1, col2 = st.columns([0.75, 5])
+
+with col1:
+ if st.button("Plot-2"):
+   df['Cumulative_Load'] = df['Children in CBP custody'].cumsum()
+   # -----------------------------
+   # Plot
+   # -----------------------------
+   fig, ax = plt.subplots(figsize=(10, 5))
+   ax.plot(
+       df['Date'],
+       df['Cumulative_Load'],
+       color='cyan',
+       linestyle='-.',
+       label = "Cumsum of Children in CBP Custody"
+   )
+   ax.set_title("Cumulative Load Over Time")
+   ax.set_xlabel("Date")
+   ax.set_ylabel("Cumulative Load")
+   ax.legend()
+   # Rotate x-axis labels
+   plt.xticks(rotation=45)
+   st.pyplot(fig)
+
+with col2:
+    st.write("Click the PLOT Button to Display the CumSum of CBP Custody")
+
+# Convert to datetime
+df['Date'] = pd.to_datetime(df['Date'])
+
+# Sort chronologically
+df = df.sort_values('Date')
+
+# Create complete daily index
+df = df.set_index('Date').asfreq('D')
+
+# Missing values
+df = df.fillna(0)
+
+# Logical constraints
+df['Anomaly_Flag'] = 0
+
+df.loc[(df['Children transferred out of CBP custody'] > df['Children in CBP custody']), 'Anomaly_Flag'] = 1
+df.loc[(df['Children discharged from HHS Care'] > df['Children in HHS Care']), 'Anomaly_Flag'] = 1
+
+# Total system load
+df['Total_Load'] = df['Children in CBP custody'] + df['Children in HHS Care']
+
+# Net intake
+df['Net_Intake'] = df['Children transferred out of CBP custody'] - df['Children discharged from HHS Care']
+
+# Growth rate
+#df['Growth_Rate'] = df['Total_Load'].pct_change() * 100
+df['Growth_Rate'] = (
+    df['Total_Load'].pct_change() * 100
+).fillna(0)
+
+#df['Growth_Rate'] = df['Total_Load'][-1]
+
+# Backlog indicator
+df['Backlog'] = (df['Net_Intake'] > 0).astype(int)
+
+df['7_day_avg'] = df['Total_Load'].rolling(7).mean()
+df['14_day_avg'] = df['Total_Load'].rolling(14).mean()
+
+last_avg = df['Total_Load'].rolling(7).mean().iloc[-1]
+
+days=30
+
+future_dates = pd.date_range(start=df.index[-1], periods=days+1)[1:]
+
+forecast_values = [last_avg] * days
+
+forecast_df = pd.DataFrame({
+    'Date': future_dates,
+    'Forecast_Load': forecast_values
+})
+
+# Total Load
+current_load = df['Total_Load'].iloc[-1]
+previous_load = df['Total_Load'].iloc[-2]
+load_delta = current_load - previous_load
+
+# Net Intake
+current_intake = df['Net_Intake'].iloc[-1]
+previous_intake = df['Net_Intake'].iloc[-2]
+intake_delta = (current_intake - previous_intake)
+
+# Growth Rate
+#current_growth = df['Growth_Rate'].iloc[-1]
+#previous_growth = df['Growth_Rate'].iloc[-2]
+#growth_delta = (current_growth - previous_growth)
+
+current_load = df['Total_Load'].iloc[-1]
+
+# Check if previous row exists
+if len(df) > 1:
+    previous_load = df['Total_Load'].iloc[-2]
+else:
+    previous_load = current_load
+
+# Avoid divide-by-zero
+if previous_load != 0:
+    growth_rate = ((current_load - previous_load)/ previous_load) * 100
+else:
+    growth_rate = 0
+
+# Backlog
+current_backlog = df['Backlog'].sum()
+previous_backlog = df['Backlog'].iloc[:-1].sum()
+backlog_delta = (current_backlog- previous_backlog)
+
+# st.title("📊 HHS Care System Dashboard")
+
+# -------------------------------
+# KPI SECTION
+# -------------------------------
+#st.subheader("🔑 Key Metrics")
+st.subheader("🔑 Key Performance Indicators- Overall")
+
+col1, col2, col3, col4 = st.columns(4)
+
+#col1.metric("Total Load", int(df['Total_Load'].iloc[-1]), "+50",  delta_color ="normal" )
+#col2.metric("Net Intake", int(df['Net_Intake'].iloc[-1]), "-1", delta_color ="normal" )
+#col3.metric("Growth Rate %", round(df['Growth_Rate'].iloc[0], 2), "0%")
+#col4.metric("Backlog Active", int(df['Backlog'].sum()), "+5", delta_color ="normal" )
+
+with col1:
+    st.metric(
+        "Total Load",
+        int(current_load),
+        delta=f"{load_delta:+,.0f}",
+        delta_color="normal"
+    )
+
+with col2:
+    st.metric(
+        "Net Intake",
+        int(current_intake),
+        delta=f"{intake_delta:+,.0f}",
+        delta_color="normal"
+    )
+
+with col3:
+    st.metric(
+        "Growth Rate %",
+        round(growth_rate, 2),
+        delta=f"{growth_rate:+.2f}%"
+    )
+
+with col4:
+    st.metric(
+        "Backlog Active",
+        int(current_backlog),
+        delta=f"{backlog_delta:+,.0f}",
+        delta_color="normal"
+    )
+
+st.sidebar.header("🔧 Filters")
+# =====================================
+# SIDEBAR FILTERS
+# =====================================
+#st.sidebar.header("Filters")
+
+# -------- Date Range --------
+start_date = st.sidebar.date_input(
+    "Start Date",
+    value=df.index.min().date()
+)
+
+end_date = st.sidebar.date_input(
+    "End Date",
+    value=df.index.max().date()
+)
+
+# -------- Time Granularity --------
+granularity = st.sidebar.selectbox(
+    "Time Granularity",
+    ["Daily", "Weekly", "Monthly", "Yearly"]
+)
+
+# =====================================
+# DATE FILTER
+# =====================================
+# Convert index to datetime
+df.index = pd.to_datetime(
+    df.index,
+    errors='coerce'
+)
+
+# Remove invalid dates
+df = df[df.index.notna()]
+
+filtered_df = df[(df.index.date >= start_date) & (df.index.date <= end_date)].copy()
+
+if filtered_df.empty:
+    st.warning("No data available")
+    st.stop()
+
+# =====================================
+# APPLY TIME GRANULARITY
+# =====================================
+if granularity == "Daily":
+    grouped_df = filtered_df.groupby(
+        filtered_df.index.date
+    ).sum(numeric_only=True)
+
+elif granularity == "Weekly":
+    grouped_df = filtered_df.groupby(
+        filtered_df.index.to_period('W')
+    ).sum(numeric_only=True)
+
+elif granularity == "Monthly":
+    grouped_df = filtered_df.groupby(
+        filtered_df.index.to_period('M')
+    ).sum(numeric_only=True)
+
+elif granularity == "Yearly":
+    grouped_df = filtered_df.groupby(
+        filtered_df.index.to_period('Y')
+    ).sum(numeric_only=True)
+
+# Reset index
+grouped_df = grouped_df.reset_index()
+
+#st.write(df.columns.tolist())
+#st.write(grouped_df.columns.tolist())
+# =====================================
+# KPI CALCULATIONS
+# =====================================
+
+# Total Children Care
+total_children_care = (grouped_df['Children in CBP custody'].iloc[-1]+grouped_df['Children in HHS Care'].iloc[-1])
+
+# Intake
+total_intake = grouped_df['Children apprehended and placed in CBP custody*'].iloc[-1]
+
+# Discharge
+total_discharge = grouped_df['Children discharged from HHS Care'].iloc[-1]
+
+# Net Intake Pressure
+if total_intake != 0:
+    net_intake_pressure = ((total_intake - total_discharge) / total_intake) * 100
+else:
+    net_intake_pressure = 0
+
+# Care Load Volatility Index
+load_col = grouped_df['Children in CBP custody']
+
+if load_col.mean() != 0:
+    volatility_index = (load_col.std() / load_col.mean()) * 100
+else:
+    volatility_index = 0
+
+# Backlog Accumulation Rate
+initial_load = grouped_df['Children in CBP custody'].iloc[0]
+current_load = grouped_df['Children in CBP custody'].iloc[-1]
+
+if initial_load != 0:
+    backlog_rate = ((current_load - initial_load) / initial_load) * 100
+else:
+    backlog_rate = 0
+
+# Discharge Offset Ratio
+if total_intake != 0:
+    discharge_ratio = (total_discharge / total_intake)
+else:
+    discharge_ratio = 0
+
+
+# =====================================
+# KPI DASHBOARD
+# =====================================
+st.subheader("🔑 Key Performance Indicators - Filtered")
+st.write("Select the Date Range & Granularity for KPI Metrics")
+
+col1, col2, col3, col4, col5 = st.columns(5)
+
+with col1:
+    st.metric(
+        "Total Children Care",
+        value=f"{total_children_care:,.0f}",
+        delta=f"{total_children_care:+,.0f}",
+        delta_color="normal"
+    )
+
+with col2:
+    st.metric(
+        "Net Intake Pressure",
+        value=f"{net_intake_pressure:,.2f}%",
+        delta=f"{net_intake_pressure:+,.2f}%",
+        delta_color="normal"
+    )
+
+with col3:
+    st.metric(
+        "Care Load Volatility Index",
+        value=f"{volatility_index:,.2f}%",
+        delta=f"{volatility_index:+,.2f}%",
+        delta_color="normal"
+    )
+
+#col4, col5 = st.columns(2)
+
+with col4:
+    st.metric(
+        "Backlog Accumulation Rate",
+        value=f"{backlog_rate:,.2f}%",
+        delta=f"{backlog_rate:+,.2f}%",
+        delta_color="normal"
+    )
+
+with col5:
+    st.metric(
+        "Discharge Offset Ratio",
+        value=f"{discharge_ratio:,.2f}",
+        delta=f"{discharge_ratio:+,.2f}",
+        delta_color="normal"
+    )
+
+
+# =====================================
+# SHOW FILTERED DATA
+# =====================================
+st.subheader(
+    f"{granularity} Aggregated Data"
+)
+
+st.dataframe(grouped_df)
+#-------------------------------------------
+
+# Initialize session state
+#if "input_value" not in st.session_state:
+#    st.session_state.input_value = ""
+
+# Function to validate input
+#def validate_input():
+#    value = st.session_state.input_value
+
+    # Check if input is an integer
+#    try:
+#        int(value)
+
+#    except ValueError:
+#        st.error("❌ Please enter a valid integer number.")
+        
+        # Clear the field
+#        st.session_state.input_value = ""
+
+# Label + input field
+#st.text_input(
+#    label="Enter an Integer Number:",
+#    key="input_value",
+#    on_change=validate_input
+#)
+
+# Display valid input
+#if st.session_state.input_value != "":
+#    st.success(
+#        f"✅ Valid Integer Entered: {int(st.session_state.input_value)}"
+#    )
+#------------------------------------------------
+#number = st.number_input(
+#    "Enter a Number:",
+#    min_value=0,
+#    step=1,
+#    format="%d"
+#) 
+st.subheader(f"Machine Learning Model Predictions")
+st.write("****📌Note: All fields are Mandatory, pls enter your values****")
+
+col1, col2 = st.columns([3, 1])
+with col1:
+    CAPCBP = st.number_input("1.Children apprehended and placed in CBP custody (range:1-333)", step=1)
+
+col1, col2 = st.columns([3, 1])
+with col1:
+    CinCBP = st.number_input("2.Children in CBP custody (range:7-531)", step=1)
+ 
+col1, col2 = st.columns([3, 1])
+with col1:
+    CtoCBP = st.number_input("3.Children transferred out of CBP custody (range:0-440)", step=1)
+
+col1, col2 = st.columns([3, 1])
+with col1:
+    CinHHS = st.number_input("4.Children in HHS Care (range:1972-11516)", step=1)
+
+col1, col2 = st.columns([3, 1])
+with col1:
+    CdHHS = st.number_input("5.Children discharged from HHS Care (range:0-505)", step=1)
+
+if st.button("Predict"):
+
+    # Store all values in a list
+    values = [CAPCBP, CinCBP, CtoCBP, CinHHS, CdHHS]
+
+    errors = []
+
+    # Range validation
+    if not (1 <= CAPCBP <= 333):
+       errors.append("1.Value must be between 1 and 333")
+
+    if not (7 <= CinCBP <= 531):
+       errors.append("2.Value must be between 7 and 531")
+
+    if not (0 <= CtoCBP <= 440):
+       errors.append("3.Value must be between 0 and 440")
+
+    if not (1972 <= CinHHS <= 11516):
+       errors.append("4.Value must be between 1972 and 11516")
+
+    if not (0 <= CdHHS <= 505):
+       errors.append("5.Value must be between 0 and 505") 
+
+    # Show errors
+    if errors:
+       st.error("❌ Invalid Inputs")
+
+       for error in errors:
+           st.write(error)
+    
+    else:
+       st.success("✅ All values are valid")
+       # Further processing
+       st.write("Proceeding with prediction...")
+#------------------------------------------------------
+    # Check if any field is empty
+    #if any(v is None for v in values):
+        #st.error("❌ Please fill all 5 fields.")
+
+    #else:
+        #st.success("✅ All fields entered correctly!")
+
+        # Further processing
+        #total = sum(values)
+
+        #st.write(grouped_df.columns.tolist())
+        #st.write("Total =", total)
+
+@st.cache_resource
+def train_model():
+    model = LinearRegression()
+    model.fit(X, y)
+    return model
+
+model = train_model()
+
+#This automatically restricts input to integers and avoids
+# Date range selector
+#min_date = df.index.min()
+#max_date = df.index.max()
+
+#date_range = st.sidebar.date_input(
+#    "Select Date Range",
+#    [min_date, max_date]
+#)
+
+# Metric toggle
+#metric = st.sidebar.selectbox(
+#    "Select Metric",
+#    ["Total", "Inflow", "Outflow", "Backlog"]
+#)
+
+# Time granularity
+#granularity = st.sidebar.selectbox(
+#    "Time Granularity",
+#    ["Daily", "Weekly", "Monthly"]
+#)
+
+#df_filtered = df[
+#    (df['Date'] >= pd.to_datetime(date_range[0])) &
+#    (df['Date'] <= pd.to_datetime(date_range[1]))
+#]
+
+#df_filtered = df[
+#    (df.index >= pd.to_datetime(date_range[0])) &
+#    (df.index <= pd.to_datetime(date_range[1]))
+#]
+
+# Resampling based on granularity
+#if granularity == "Weekly":
+#    df_filtered = df_filtered.resample('W').sum().reset_index()
+#elif granularity == "Monthly":
+#    df_filtered = df_filtered.resample('M').sum().reset_index()
+
+
