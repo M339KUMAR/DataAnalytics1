@@ -475,6 +475,21 @@ col1, col2 = st.columns([3, 1])
 with col1:
     CdHHS = st.number_input("5.Children discharged from HHS Care (range:0-505)", step=1)
 
+#st.write("*****Click The Predict Button to forecast for next day*****")
+#st.write(grouped_df.columns.tolist())
+if st.button("Train Model"):
+
+    model = SARIMAX(
+        target,
+        exog=exog,
+        order=(1,1,1),
+        seasonal_order=(1,1,1,7)
+    )
+
+    st.session_state.results = model.fit()
+
+    st.success("Model Trained")
+
 st.write("*****Click The Predict Button to forecast for next day*****")
 #st.write(grouped_df.columns.tolist())
 if st.button("Predict"):
@@ -511,16 +526,9 @@ if st.button("Predict"):
        st.success("✅ All values are valid")
        # Further processing
        st.write("Proceeding with prediction...")
-       target = grouped_df['Total_Load']
-       exog = grouped_df[['Children apprehended and placed in CBP custody*','Children in CBP custody','Children transferred out of CBP custody','Children in HHS Care','Children discharged from HHS Care']]
-       st.write("Hai")            
-       model = SARIMAX(
-                       target,
-                       exog=exog,                # optional
-                       order=(1,1,1),            # p,d,q
-                       seasonal_order=(1,1,1,7) # P,D,Q,s
-                      )
-       results = model.fit()
+       
+       #results = model.fit()
+       
        future_exog = pd.DataFrame({
                                   'Children apprehended and placed in CBP custody*':[CAPCBP],
                                   'Children in CBP custody':[CinCBP],
@@ -528,10 +536,15 @@ if st.button("Predict"):
                                   'Children in HHS Care':[CinHHS],
                                   'Children discharged from HHS Care':[CdHHS]
                                  })
-       forecast = results.forecast(
-                                   steps=1,
-                                   exog=future_exog
-                                  )
+       if "results" in st.session_state:
+           forecast = st.session_state.results.forecast(
+                steps=1,
+                exog=future_exog
+           )
+       #forecast = results.forecast(
+       #                            steps=1,
+       #                            exog=future_exog
+       #                           )
      
        predicted_value = forecast.iloc[0]
      
