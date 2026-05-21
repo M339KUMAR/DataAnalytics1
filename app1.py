@@ -478,7 +478,14 @@ with col1:
 #st.write("*****Click The Predict Button to forecast for next day*****")
 #st.write(grouped_df.columns.tolist())
 if st.button("Train Model"):
-
+    st.write("*****Training The Model....*****")
+    target = grouped_df['Total_Load']
+    exog = grouped_df[['Children apprehended and placed in CBP custody*',
+                'Children in CBP custody',
+                'Children transferred out of CBP custody',
+                'Children in HHS Care',
+                'Children discharged from HHS Care']]
+     
     model = SARIMAX(
         target,
         exog=exog,
@@ -555,7 +562,8 @@ if st.button("Predict"):
         )
 #st.write(results.summary())
 
-st.write("****📌Note: All fields are Mandatory, pls enter your values****")
+st.write("------------------------------------------")
+#st.write("****📌Note: All fields are Mandatory, pls enter your values****")
 st.write("*****To Forecast Total Load within next 7 days(Week)*****")
 st.write("*****Use the slider to set num. of days to forecast*****")
 n_steps = st.slider(
