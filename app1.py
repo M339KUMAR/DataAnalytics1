@@ -654,6 +654,8 @@ for col, (min_val, max_val) in limits.items():
                     #f"Day {i+1}",
                     #f"{forecast.iloc[i]:,.2f}"
                     #)
+st.write(f"*****Click The Predict Button to get forecast for {n_steps} Days*****")
+
 if st.button(
     "Predict2",
     key="forecast_btn"):
