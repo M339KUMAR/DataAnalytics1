@@ -513,7 +513,7 @@ if st.button("Predict"):
        st.write("Proceeding with prediction...")
        target = grouped_df['Total_Load']
        exog = grouped_df[['Children apprehended and placed in CBP custody*','Children in CBP custody','Children transferred out of CBP custody','Children in HHS Care','Children discharged from HHS Care']]
-                   
+       st.write("Hai")            
        model = SARIMAX(
                        target,
                        exog=exog,                # optional
@@ -548,7 +548,7 @@ st.write("*****Use the slider to set num. of days to forecast*****")
 n_steps = st.slider(
     "Select future prediction steps",
     min_value=1,
-    max_value=10,
+    max_value=7,
     value=3
 )
 
