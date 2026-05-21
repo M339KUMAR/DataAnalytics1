@@ -8,6 +8,7 @@
 
 import streamlit as st
 import pandas as pd
+import numpy as np
 import openpyxl
 import matplotlib.pyplot as plt
 from ydata_profiling import ProfileReport
