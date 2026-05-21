@@ -510,22 +510,32 @@ if st.button("Predict"):
        st.success("✅ All values are valid")
        # Further processing
        st.write("Proceeding with prediction...")
-
-target = grouped_df['Total_Load']
-exog = grouped_df[['Children apprehended and placed in CBP custody*','Children in CBP custody','Children transferred out of CBP custody','Children in HHS Care','Children discharged from HHS Care']]
+       target = grouped_df['Total_Load']
+       exog = grouped_df[['Children apprehended and placed in CBP custody*','Children in CBP custody','Children transferred out of CBP custody','Children in HHS Care','Children discharged from HHS Care']]
                    
-model = SARIMAX(
-    target,
-    exog=exog,                # optional
-    order=(1,1,1),            # p,d,q
-    seasonal_order=(1,1,1,7) # P,D,Q,s
-)
-results = model.fit()
-forecast = results.forecast(
-    steps=1,
-    exog=future_exog
-)
-st.write("*****The Forecast of Tootal Load for next Day:,forecast*****")
+       model = SARIMAX(
+                       target,
+                       exog=exog,                # optional
+                       order=(1,1,1),            # p,d,q
+                       seasonal_order=(1,1,1,7) # P,D,Q,s
+                      )
+       results = model.fit()
+       future_exog = pd.DataFrame(
+                                  'Children apprehended and placed in CBP custody*':[CAPCBP],
+                                  'Children in CBP custody':[CinCBP],
+                                  'Children transferred out of CBP custody':[CtoCBP],
+                                  'Children in HHS Care':[CinHHS],
+                                  'Children discharged from HHS Care':[CdHHS]
+                                 )
+       forecast = results.forecast(
+                                   steps=1,
+                                   exog=future_exog
+                                  )
+       st.write("*****The Forecast of Total Load for next Day:,forecast*****")
+       st.metric(
+           "Predicted Total Load",
+           f"{forecast:,.2f}"
+        )
 #st.write(results.summary())
 
 st.write("****📌Note: All fields are Mandatory, pls enter your values****")
