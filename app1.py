@@ -74,7 +74,7 @@ with col1:
        st.pyplot(fig)
 
 with col2:
-    st.write("Click the PLOT Button to Display the Graph")
+    st.write("Click the PLOT Button to Display the Date vs Children in CBP Custody Graph")
 
 # Convert datetime
 df['Date'] = pd.to_datetime(df['Date'])
@@ -520,10 +520,13 @@ model = SARIMAX(
     order=(1,1,1),            # p,d,q
     seasonal_order=(1,1,1,7) # P,D,Q,s
 )
-
 results = model.fit()
-
-st.write(results.summary())
+forecast = results.forecast(
+    steps=1,
+    exog=future_exog
+)
+st.write("*****The Forecast of Tootal Load for next Day:,forecast*****")
+#st.write(results.summary())
 
 st.write("****📌Note: All fields are Mandatory, pls enter your values****")
 st.write("*****To Forecast Total Load within next 7 days(Week)*****")
