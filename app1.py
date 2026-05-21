@@ -547,6 +547,28 @@ n_steps = st.slider(
     max_value=10,
     value=3
 )
+
+exog_columns = ['Children apprehended and placed in CBP custody*',
+                'Children in CBP custody':[CinCBP],
+                'Children transferred out of CBP custody',
+                'Children in HHS Care',
+                'Children discharged from HHS Care'
+               ]
+
+# -----------------------------------
+# Create empty dataframe
+# -----------------------------------
+empty_df = pd.DataFrame(
+    np.zeros((n_steps, len(exog_columns))),
+    columns=exog_columns
+)
+
+future_exog = st.data_editor(
+    empty_df,
+    num_rows="fixed",
+    use_container_width=True,
+    key="future_exog_table"
+   )
 #------------------------------------------------------
     # Check if any field is empty
     #if any(v is None for v in values):
