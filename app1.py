@@ -595,6 +595,8 @@ future_exog = st.data_editor(
     key="future_exog_table"
    )
 
+error_messages =[]
+
 if (future_exog < 0).values.any():
     validation_passed = False
     error_messages.append(
