@@ -570,6 +570,64 @@ future_exog = st.data_editor(
     use_container_width=True,
     key="future_exog_table"
    )
+
+if (future_exog < 0).values.any():
+    validation_passed = False
+    error_messages.append(
+        "Negative values are not allowed."
+    )
+
+limits = {
+    "Children apprehended and placed in CBP custody*": (1, 333),
+    "Children in CBP custody": (7, 531),
+    "Children transferred out of CBP custody": (0, 440),
+    "Children in HHS Care": (1972, 11516),
+    "Children discharged from HHS Care": (0, 505)
+}
+
+for col, (min_val, max_val) in limits.items():
+
+    invalid_mask = (
+                      (future_exog[col] < min_val) | (future_exog[col] > max_val)
+                   )
+
+    if invalid_mask.any():
+
+        invalid_rows = (
+            future_exog.index[invalid_mask]
+            .tolist()
+        )
+
+        validation_passed = False
+
+        error_messages.append(
+            f"{col} must be between "
+            f"{min_val} and {max_val}. "
+            f"Problem in row(s): "
+            f"{invalid_rows}"
+        )
+
+# -----------------------------
+if st.button("Predict"):
+    if validation_passed:
+        st.success("All inputs are valid.")
+     
+        forecast = results.forecast(
+            steps=n_steps,
+            exog=future_exog
+        )
+
+        st.dataframe(forecast)
+        st.write("*****The Forecast of Total Load for next Day:,forecast*****")
+        st.metric(
+           "Predicted Total Load",
+           f"{forecast:,.2f}"
+        )
+    else:
+        for err in error_messages:
+            st.error(err)
+
+
 #------------------------------------------------------
     # Check if any field is empty
     #if any(v is None for v in values):
