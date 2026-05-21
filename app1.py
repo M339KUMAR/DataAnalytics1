@@ -635,28 +635,73 @@ for col, (min_val, max_val) in limits.items():
         )
 
 # -----------------------------
-if st.button("Predict2", key="predict2_button"):
-    if validation_passed:
-        st.success("All inputs are valid.")
+#if st.button("Predict2", key="predict2_button"):
+    #if validation_passed:
+        #st.success("All inputs are valid.")
      
-        forecast = results.forecast(
-            steps=n_steps,
-            exog=future_exog
+        #forecast = results.forecast(
+            #steps=n_steps,
+            #exog=future_exog
+        #)
+
+        #st.dataframe(forecast)
+        #st.write(f"*****The Forecast of Total Load for next {n_steps} Day:*****")
+        #cols = st.columns(n_steps)
+
+        #for i in range(n_steps):
+           #with cols[i]:
+               #st.metric(
+                    #f"Day {i+1}",
+                    #f"{forecast.iloc[i]:,.2f}"
+                    #)
+if st.button(
+    "Predict2",
+    key="forecast_btn"):
+
+    if "results" not in st.session_state:
+
+        st.error(
+            "Please train model first "
+            "using Predict1."
+        )
+
+    elif validation_passed:
+
+        forecast = (
+            st.session_state.results
+            .forecast(
+                steps=n_steps,
+                exog=future_exog
+            )
         )
 
         st.dataframe(forecast)
-        st.write(f"*****The Forecast of Total Load for next {n_steps} Day:*****")
+
+        st.write(
+            f"Forecast of Total Load "
+            f"for next {n_steps} day(s)"
+        )
+
         cols = st.columns(n_steps)
 
         for i in range(n_steps):
-           with cols[i]:
-               st.metric(
+
+            with cols[i]:
+
+                st.metric(
                     f"Day {i+1}",
                     f"{forecast.iloc[i]:,.2f}"
-                    )
+                )
+
     else:
+
         for err in error_messages:
             st.error(err)
+    
+ 
+    #else:
+        #for err in error_messages:
+            #st.error(err)
 
 
 #------------------------------------------------------
