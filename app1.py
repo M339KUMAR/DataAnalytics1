@@ -644,11 +644,15 @@ if st.button("Predict2"):
         )
 
         st.dataframe(forecast)
-        st.write("*****The Forecast of Total Load for next Day:,forecast*****")
-        st.metric(
-           "Predicted Total Load",
-           f"{forecast:,.2f}"
-        )
+        st.write("*****The Forecast of Total Load for next {n_steps} Day:*****")
+        cols = st.columns(n_steps)
+
+        for i in range(n_steps):
+           with cols[i]:
+               st.metric(
+                    f"Day {i+1}",
+                    f"{forecast.iloc[i]:,.2f}"
+                    )
     else:
         for err in error_messages:
             st.error(err)
