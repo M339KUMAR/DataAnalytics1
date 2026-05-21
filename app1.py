@@ -14,8 +14,10 @@ from ydata_profiling import ProfileReport
 #from data_profiling.profile_report import ProfileReport
 import streamlit.components.v1 as components
 
-from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
+#from sklearn.linear_model import LinearRegression
+#from sklearn.model_selection import train_test_split
+
+from statsmodels.tsa.statespace.sarimax import SARIMAX
 
 st.set_page_config(layout="wide")
 
@@ -29,7 +31,7 @@ df = pd.read_excel('HHS_Unaccompanied_Alien_Children_Program.xlsx', engine='open
 
 st.markdown("<h1 style='text-align: center;'>UNIFIED MENTOR</h1>", unsafe_allow_html=True)
 st.markdown("<h2 style='text-align: center;'> Data Analytics Intern</h2>", unsafe_allow_html=True)
-st.markdown("<h2 style='text-align: center;'> Project-1</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='text-align: center;'> Project-1: HEALTHCARE Analytics</h2>", unsafe_allow_html=True)
 st.write("***📌US-HHS Unaccompanied Children Program  Dashboard***")
 
 st.dataframe(df)
@@ -450,6 +452,7 @@ st.dataframe(grouped_df)
 #) 
 st.subheader(f"Machine Learning Model Predictions")
 st.write("****📌Note: All fields are Mandatory, pls enter your values****")
+st.write("****To Forecast Total Load for Next Day****")
 
 col1, col2 = st.columns([3, 1])
 with col1:
@@ -471,6 +474,8 @@ col1, col2 = st.columns([3, 1])
 with col1:
     CdHHS = st.number_input("5.Children discharged from HHS Care (range:0-505)", step=1)
 
+st.write("*****Click The Predict Button to forecast for next day*****")
+st.write(grouped_df.columns.tolist())
 if st.button("Predict"):
 
     # Store all values in a list
