@@ -565,7 +565,7 @@ if st.button("Predict1"):
 st.write("------------------------------------------")
 #st.write("****📌Note: All fields are Mandatory, pls enter your values****")
 st.write("*****To Forecast Total Load within next 7 days(Week)*****")
-st.write("*****Use the slider to set num. of days to forecast*****")
+st.write("*****Use the slider to set num. of days to forecast & Enter The Values*****")
 n_steps = st.slider(
     "Select future prediction steps",
     min_value=1,
