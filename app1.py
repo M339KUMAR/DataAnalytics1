@@ -520,13 +520,13 @@ if st.button("Predict"):
                        seasonal_order=(1,1,1,7) # P,D,Q,s
                       )
        results = model.fit()
-       future_exog = pd.DataFrame(
+       future_exog = pd.DataFrame({
                                   'Children apprehended and placed in CBP custody*':[CAPCBP],
                                   'Children in CBP custody':[CinCBP],
                                   'Children transferred out of CBP custody':[CtoCBP],
                                   'Children in HHS Care':[CinHHS],
                                   'Children discharged from HHS Care':[CdHHS]
-                                 )
+                                 })
        forecast = results.forecast(
                                    steps=1,
                                    exog=future_exog
