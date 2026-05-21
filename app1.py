@@ -549,7 +549,7 @@ n_steps = st.slider(
 )
 
 exog_columns = ['Children apprehended and placed in CBP custody*',
-                'Children in CBP custody':[CinCBP],
+                'Children in CBP custody',
                 'Children transferred out of CBP custody',
                 'Children in HHS Care',
                 'Children discharged from HHS Care'
