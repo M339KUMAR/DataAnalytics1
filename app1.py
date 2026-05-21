@@ -548,7 +548,7 @@ if st.button("Predict"):
      
        predicted_value = forecast.iloc[0]
      
-       st.write("*****The Forecast of Total Load for next Day:,forecast*****")
+       st.write("*****The Forecast of Total Load for next Day:*****")
        st.metric(
            "Predicted Total Load",
            f"{predicted_value:,.2f}"
