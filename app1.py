@@ -499,7 +499,7 @@ if st.button("Train Model"):
 
 st.write("*****Click The Predict Button to forecast for next day*****")
 #st.write(grouped_df.columns.tolist())
-if st.button("Predict"):
+if st.button("Predict1"):
 
     # Store all values in a list
     values = [CAPCBP, CinCBP, CtoCBP, CinHHS, CdHHS]
@@ -634,7 +634,7 @@ for col, (min_val, max_val) in limits.items():
         )
 
 # -----------------------------
-if st.button("Predict"):
+if st.button("Predict2"):
     if validation_passed:
         st.success("All inputs are valid.")
      
