@@ -475,7 +475,7 @@ col1, col2 = st.columns([3, 1])
 with col1:
     CdHHS = st.number_input("5.Children discharged from HHS Care (range:0-505)", step=1)
 
-#st.write("*****Click The Predict Button to forecast for next day*****")
+st.write("*****After Entering Values - Use The Train Model Button First*****")
 #st.write(grouped_df.columns.tolist())
 if st.button("Train Model"):
     st.write("*****Training The Model....*****")
