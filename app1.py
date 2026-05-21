@@ -532,10 +532,13 @@ if st.button("Predict"):
                                    steps=1,
                                    exog=future_exog
                                   )
+     
+       predicted_value = forecast.iloc[0]
+     
        st.write("*****The Forecast of Total Load for next Day:,forecast*****")
        st.metric(
            "Predicted Total Load",
-           f"{forecast:,.2f}"
+           f"{predicted_value:,.2f}"
         )
 #st.write(results.summary())
 
