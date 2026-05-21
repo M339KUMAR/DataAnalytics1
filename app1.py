@@ -635,7 +635,7 @@ for col, (min_val, max_val) in limits.items():
         )
 
 # -----------------------------
-if st.button("Predict2"):
+if st.button("Predict2", key="predict2_button"):
     if validation_passed:
         st.success("All inputs are valid.")
      
@@ -645,7 +645,7 @@ if st.button("Predict2"):
         )
 
         st.dataframe(forecast)
-        st.write("*****The Forecast of Total Load for next {n_steps} Day:*****")
+        st.write(f"*****The Forecast of Total Load for next {n_steps} Day:*****")
         cols = st.columns(n_steps)
 
         for i in range(n_steps):
