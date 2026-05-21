@@ -452,7 +452,7 @@ st.dataframe(grouped_df)
 #) 
 st.subheader(f"Machine Learning Model Predictions")
 st.write("****📌Note: All fields are Mandatory, pls enter your values****")
-st.write("****To Forecast Total Load for Next Day****")
+st.write("*****To Forecast Total Load for Next Day*****")
 
 col1, col2 = st.columns([3, 1])
 with col1:
@@ -475,7 +475,7 @@ with col1:
     CdHHS = st.number_input("5.Children discharged from HHS Care (range:0-505)", step=1)
 
 st.write("*****Click The Predict Button to forecast for next day*****")
-st.write(grouped_df.columns.tolist())
+#st.write(grouped_df.columns.tolist())
 if st.button("Predict"):
 
     # Store all values in a list
@@ -510,6 +510,30 @@ if st.button("Predict"):
        st.success("✅ All values are valid")
        # Further processing
        st.write("Proceeding with prediction...")
+
+target = grouped_df['Total_Load']
+exog = grouped_df[['Children apprehended and placed in CBP custody*','Children in CBP custody','Children transferred out of CBP custody','Children in HHS Care','Children discharged from HHS Care']]
+                   
+model = SARIMAX(
+    target,
+    exog=exog,                # optional
+    order=(1,1,1),            # p,d,q
+    seasonal_order=(1,1,1,7) # P,D,Q,s
+)
+
+results = model.fit()
+
+st.write(results.summary())
+
+st.write("****📌Note: All fields are Mandatory, pls enter your values****")
+st.write("*****To Forecast Total Load within next 7 days(Week)*****")
+st.write("*****Use the slider to set num. of days to forecast*****")
+n_steps = st.slider(
+    "Select future prediction steps",
+    min_value=1,
+    max_value=10,
+    value=3
+)
 #------------------------------------------------------
     # Check if any field is empty
     #if any(v is None for v in values):
