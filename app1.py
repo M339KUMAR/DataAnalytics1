@@ -48,11 +48,11 @@ st.markdown("""
 div.stButton > button {
     background-color: #1E88E5;
     color: white;
-    border-radius: 12px;
+    border-radius: 15px;
     border: none;
     height: 50px;
-    width: 200px;
-    font-size: 18px;
+    width: 100px;
+    font-size: 20px;
     font-weight: bold;
 }
 
