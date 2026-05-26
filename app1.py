@@ -68,7 +68,7 @@ if os.path.exists(image_path1) & os.path.exists(image_path2):
                  width="60">
         </div>
         """,
-        unsafe_allow_html=True
+        unsafe_allow_html=True)
 else:
     st.error(f"Image not found: {image_path}")
 #--------------------------------------
