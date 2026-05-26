@@ -570,7 +570,8 @@ with col1:
 
 st.write("*****After Entering Values - Use The Train Model Button First*****")
 #st.write(grouped_df.columns.tolist())
-if st.button("Train Model"):
+try:
+ if st.button("Train Model"):
     st.write("*****Training The Model....*****")
     target = grouped_df['Total_Load']
     exog = grouped_df[['Children apprehended and placed in CBP custody*',
@@ -589,7 +590,9 @@ if st.button("Train Model"):
     st.session_state.results = model.fit()
 
     st.success("Model Trained")
-
+except Exception : 
+  pass
+ 
 st.write("*****Click The Predict Button to forecast for next day*****")
 #st.write(grouped_df.columns.tolist())
 if st.button("Predict1"):
