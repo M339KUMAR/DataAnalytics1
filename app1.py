@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 from ydata_profiling import ProfileReport
 #from data_profiling.profile_report import ProfileReport
 import streamlit.components.v1 as components
+import base64
 
 #from sklearn.linear_model import LinearRegression
 #from sklearn.model_selection import train_test_split
