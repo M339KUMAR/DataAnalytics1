@@ -38,6 +38,7 @@ image_path = "Scope.jpeg"
 
 if os.path.exists(image_path):
     img = Image.open(image_path)
+    img = img.resize((50, 50))
     st.image(img, use_column_width=True)
 else:
     st.error(f"Image not found: {image_path}")
