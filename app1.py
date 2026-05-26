@@ -45,9 +45,9 @@ def get_base64(image_path):
 
 if os.path.exists(image_path1) & os.path.exists(image_path2):
     img1 = Image.open(image_path1)
-    img1 = img1.resize((50, 50))
+    #img1 = img1.resize((50, 50))
     img2 = Image.open(image_path2)
-    img2 = img2.resize((50,50))
+    #img2 = img2.resize((50,50))
 
     img1 = get_base64(img1)
     img2 = get_base64(img2)
