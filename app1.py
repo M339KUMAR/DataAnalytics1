@@ -25,7 +25,7 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 
 st.set_page_config(layout="wide")
 
-#Page Background Color
+#Page Background Color-->
 page_bg = """
 <style>
 [data-testid="stAppViewContainer"] {
@@ -35,7 +35,7 @@ page_bg = """
 """
 st.markdown(page_bg, unsafe_allow_html=True)
 
-#Image Icons Display
+#Image Icons Display-->
 image_path = "Scope.jpeg"
 
 if os.path.exists(image_path):
@@ -45,7 +45,7 @@ if os.path.exists(image_path):
 else:
     st.error(f"Image not found: {image_path}")
 
-#CSS Style Button 
+#CSS Style Button-->
 st.markdown("""
 <style>
 div.stButton > button {
@@ -65,7 +65,7 @@ div.stButton > button:hover {
 </style>
 """, unsafe_allow_html=True)
 
-#Metric Cards Customization
+#Metric Cards Customization-->
 st.markdown("""
 <style>
 [data-testid="metric-container"] {
@@ -101,6 +101,48 @@ st.markdown("<h2 style='text-align: center;'> Project-1: HEALTHCARE Analytics</h
 st.write("***📌US-HHS Unaccompanied Children Program  Dashboard***")
 
 st.dataframe(df)
+
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown("""
+    <div style="
+        background-color:#FFD1DC;
+        padding:20px;
+        border-radius:15px;
+        text-align:center;
+        box-shadow:2px 2px 8px gray;">
+        <h4>Total Sales</h4>
+        <h2>₹50,000</h2>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown("""
+    <div style="
+        background-color:#E6E6FA;
+        padding:20px;
+        border-radius:15px;
+        text-align:center;
+        box-shadow:2px 2px 8px gray;">
+        <h4>Customers</h4>
+        <h2>1,250</h2>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col3:
+    st.markdown("""
+    <div style="
+        background-color:#D8BFD8;
+        padding:20px;
+        border-radius:15px;
+        text-align:center;
+        box-shadow:2px 2px 8px gray;">
+        <h4>Profit</h4>
+        <h2>₹12,500</h2>
+    </div>
+    """, unsafe_allow_html=True)
 
 st.write("***EXPLORATORY DATA ANALYSIS***")
 try:
