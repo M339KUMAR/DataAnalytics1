@@ -24,7 +24,7 @@ st.set_page_config(layout="wide")
 
 st.image(
     "images.jpg",
-    use_container_width=True
+    use_column_width=True
 )
 
 #df = pd.read_excel('/content/sample_data/HHS_Unaccompanied_Alien_Children_Program.xlsx')
