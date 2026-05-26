@@ -792,7 +792,9 @@ if st.button(
                 )
 
     else:
-        st.write("Train Model First & Check All Values Submitted & Click Predict2")
+        st.write("Train Model First &")
+        st.write("Check All Values Submitted &")
+        st.write("Click Predict2")
         for err in error_messages:
             #st.write("Please Train Model")
             st.error(err)
