@@ -23,3 +23,5 @@ ydata-profiling==4.16.1
 
 scikit-learn==1.5.2
 statsmodels==0.14.4
+
+Pillow>=10.0.0
