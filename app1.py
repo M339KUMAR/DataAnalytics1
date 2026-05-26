@@ -41,16 +41,16 @@ image_path2 = "graph_bar-chart.jpeg"
 
 if os.path.exists(image_path1) & os.path.exists(image_path2):
     img1 = Image.open(image_path1)
-    #img1 = img1.resize((50, 50))
+    img1 = img1.resize((100, 50))
     img2 = Image.open(image_path2)
     #img2 = img2.resize((50,50)) 
  
     # st.image([img1,img2] use_column_width=False)
     col1, col2, col3 = st.columns(3, gap="small")
     with col1:
-        st.image(img1, use_column_width=True)
+        st.image(img1, use_column_width=False)
     with col2:
-        st.image(img2, use_column_width=True)
+        st.image(img2, use_column_width=False)
     with col3:
         st.write("Health Care Data Analysis \n Helps to Understand the Present Data & \n Predict The Future Situation & Aiding The Healthcare Personnel to Plan Ahead To take necessary steps")
 else:
