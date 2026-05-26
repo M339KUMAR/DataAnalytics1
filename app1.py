@@ -25,6 +25,7 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 
 st.set_page_config(layout="wide")
 
+#Page Background Color
 page_bg = """
 <style>
 [data-testid="stAppViewContainer"] {
@@ -34,6 +35,7 @@ page_bg = """
 """
 st.markdown(page_bg, unsafe_allow_html=True)
 
+#Image Icons Display
 image_path = "Scope.jpeg"
 
 if os.path.exists(image_path):
@@ -43,6 +45,7 @@ if os.path.exists(image_path):
 else:
     st.error(f"Image not found: {image_path}")
 
+#CSS Style Button 
 st.markdown("""
 <style>
 div.stButton > button {
@@ -62,6 +65,27 @@ div.stButton > button:hover {
 </style>
 """, unsafe_allow_html=True)
 
+#Metric Cards Customization
+st.markdown("""
+<style>
+[data-testid="metric-container"] {
+    background-color: #FFE4E1;
+    border: 2px solid #FFC0CB;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
+
+[data-testid="metric-container"] label {
+    color: black !important;
+    font-size: 18px !important;
+}
+
+[data-testid="metric-container"] div {
+    color: #C2185B !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 #df = pd.read_excel('/content/sample_data/HHS_Unaccompanied_Alien_Children_Program.xlsx')
 df = pd.read_excel('HHS_Unaccompanied_Alien_Children_Program.xlsx', engine='openpyxl')
