@@ -70,32 +70,33 @@ div.stButton > button:hover {
 st.markdown("""
 <style>
 
-/* Metric card box */
-[data-testid="metric-container"] {
+/* Metric card styling */
+div[data-testid="stMetric"] {
     background-color: #FFD1DC;
-    border: 2px solid #FFB6C1;
     padding: 20px;
-    border-radius: 18px;
-    box-shadow: 3px 3px 10px rgba(0,0,0,0.15);
+    border-radius: 15px;
+    border: 2px solid #FFB6C1;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.15);
+    text-align: center;
 }
 
-/* KPI title */
-[data-testid="metric-container"] label {
-    color: #6A1B4D !important;
-    font-size: 18px !important;
+/* Metric label */
+div[data-testid="stMetricLabel"] {
+    color: #6A1B4D;
+    font-size: 18px;
     font-weight: bold;
 }
 
-/* KPI value */
-[data-testid="metric-container"] [data-testid="stMetricValue"] {
-    color: #C2185B !important;
-    font-size: 30px !important;
+/* Metric value */
+div[data-testid="stMetricValue"] {
+    color: #C2185B;
+    font-size: 32px;
     font-weight: bold;
 }
 
-/* Delta value */
-[data-testid="stMetricDelta"] {
-    font-size: 18px !important;
+/* Delta styling */
+div[data-testid="stMetricDelta"] {
+    font-size: 18px;
     font-weight: bold;
 }
 
