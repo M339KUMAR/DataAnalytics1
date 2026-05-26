@@ -23,7 +23,7 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 st.set_page_config(layout="wide")
 
 st.image(
-    "images.jpg",
+    "images.jpeg",
     use_column_width=True
 )
 
