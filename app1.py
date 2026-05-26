@@ -23,12 +23,15 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 
 st.set_page_config(layout="wide")
 
-st.image(
-    "images.jpeg",
-    #use_column_width=True,
-    width = 500,
-    #height=100
-)
+page_bg = """
+<style>
+[data-testid="stAppViewContainer"] {
+    background-color: lightblue;
+}
+</style>
+"""
+st.markdown(page_bg, unsafe_allow_html=True)
+
 
 #df = pd.read_excel('/content/sample_data/HHS_Unaccompanied_Alien_Children_Program.xlsx')
 df = pd.read_excel('HHS_Unaccompanied_Alien_Children_Program.xlsx', engine='openpyxl')
