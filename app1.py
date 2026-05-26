@@ -34,7 +34,7 @@ page_bg = """
 """
 st.markdown(page_bg, unsafe_allow_html=True)
 
-image_path = "images.jpeg"
+image_path = "Scope.jpeg"
 
 if os.path.exists(image_path):
     img = Image.open(image_path)
