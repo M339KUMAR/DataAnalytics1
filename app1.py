@@ -46,11 +46,11 @@ if os.path.exists(image_path1) & os.path.exists(image_path2):
     img2 = img2.resize((70,70))
  
     # st.image([img1,img2] use_column_width=False)
-    col1, col2, col3 = st.columns([0.5,0.5,8])
+    col1, col2 = st.columns(2, gap="small")
     with col1:
-        st.image(img1, use_column_width=False)
+        st.image(img1, use_column_width=True)
     with col2:
-        st.image(img2, use_column_width=False)
+        st.image(img2, use_column_width=True)
 
 else:
     st.error(f"Image not found: {image_path}")
