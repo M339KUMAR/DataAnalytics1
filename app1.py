@@ -36,7 +36,7 @@ page_bg = """
 st.markdown(page_bg, unsafe_allow_html=True)
 #--------------------------------------
 #Image Icons Display-->
-image_path1 = "Scope.jpeg"
+image_path1 = "SScope.jpeg"
 image_path2 = "graph_bar-chart.jpeg"
 
 if os.path.exists(image_path1) & os.path.exists(image_path2):
