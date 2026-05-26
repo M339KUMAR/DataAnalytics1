@@ -36,12 +36,20 @@ page_bg = """
 st.markdown(page_bg, unsafe_allow_html=True)
 #--------------------------------------
 #Image Icons Display-->
-image_path = "Scope.jpeg"
+image_path1 = "Scope.jpeg"
+image_path2 = "graph_bar-chart.jpeg"
 
-if os.path.exists(image_path):
-    img = Image.open(image_path)
-    img = img.resize((50, 50))
-    st.image(img, use_column_width=False)
+if os.path.exists(image_path1) & os.path.exists(image_path2):
+    img1 = Image.open(image_path1)
+    img1 = img1.resize((50, 50))
+    img2 = Image.open(image_path2)
+    img2 = img2.resize((50,50))
+    # st.image([img1,img2] use_column_width=False)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.image(img1, use_column_width=False)
+    with col2:
+        st.image(img2, use_column_width=False)
 else:
     st.error(f"Image not found: {image_path}")
 #--------------------------------------
