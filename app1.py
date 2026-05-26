@@ -48,6 +48,9 @@ if os.path.exists(image_path1) & os.path.exists(image_path2):
     img1 = img1.resize((50, 50))
     img2 = Image.open(image_path2)
     img2 = img2.resize((50,50))
+
+    img1 = get_base64(img1)
+    img2 = get_base64(img2)
     # st.image([img1,img2] use_column_width=False)
     #col1, col2, col3 = st.columns([0.5,0.5,8])
     #with col1:
