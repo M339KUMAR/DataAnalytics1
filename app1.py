@@ -794,7 +794,8 @@ if st.button(
     else:
 
         for err in error_messages:
-            st.error(err)
+            st.write("Please Train Model")
+            st.error("❌"err)
     
  
     #else:
@@ -827,6 +828,7 @@ if st.button(
 st.write("****Tableau Dashboard***")
 st.write("------------------------------------")
 st.write("*****PRAVEENKUMAR MOPURU*****")
+st.write("*****UMID20032685175*****")
 st.write("*****Data Analyst Intern*****")
 st.write("*****25th March 2026 Batch*****")
 st.write("------------------------------------")
