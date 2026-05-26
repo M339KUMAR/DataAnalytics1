@@ -32,6 +32,25 @@ page_bg = """
 """
 st.markdown(page_bg, unsafe_allow_html=True)
 
+st.markdown("""
+<style>
+div.stButton > button {
+    background-color: #1E88E5;
+    color: white;
+    border-radius: 12px;
+    border: none;
+    height: 50px;
+    width: 200px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+div.stButton > button:hover {
+    background-color: #1565C0;
+}
+</style>
+""", unsafe_allow_html=True)
+
 
 #df = pd.read_excel('/content/sample_data/HHS_Unaccompanied_Alien_Children_Program.xlsx')
 df = pd.read_excel('HHS_Unaccompanied_Alien_Children_Program.xlsx', engine='openpyxl')
@@ -65,7 +84,7 @@ try:
 except ValueError: 
    st.write("Issue in Report Generation:")
 finally :
-   st.write("Report Generating...")
+   st.write("Generating EDA Report..")
 
 #st.dataframe(df['Date'])
 st.title("📊 HHS Care System Dashboard")
