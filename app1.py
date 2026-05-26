@@ -83,7 +83,7 @@ div[data-testid="stMetric"] {
 /* Metric label */
 div[data-testid="stMetricLabel"] {
     color: #6A1B4D;
-    font-size: 18px;
+    font-size: 25px;
     font-weight: bold;
 }
 
