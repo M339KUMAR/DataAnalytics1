@@ -636,6 +636,7 @@ if st.button("Predict1"):
                                   'Children in HHS Care':[CinHHS],
                                   'Children discharged from HHS Care':[CdHHS]
                                  })
+     try:
        if "results" in st.session_state:
            forecast = st.session_state.results.forecast(
                 steps=1,
@@ -653,6 +654,8 @@ if st.button("Predict1"):
            "Predicted Total Load",
            f"{predicted_value:,.2f}"
         )
+     except Exception:
+      print("Train The Model - using Train Model Button")
 #st.write(results.summary())
 
 st.write("------------------------------------------")
