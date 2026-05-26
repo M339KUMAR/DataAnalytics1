@@ -22,6 +22,11 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 
 st.set_page_config(layout="wide")
 
+st.image(
+    "image.jpg",
+    use_container_width=True
+)
+
 #df = pd.read_excel('/content/sample_data/HHS_Unaccompanied_Alien_Children_Program.xlsx')
 df = pd.read_excel('HHS_Unaccompanied_Alien_Children_Program.xlsx', engine='openpyxl')
 
