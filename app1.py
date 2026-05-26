@@ -24,7 +24,7 @@ import os
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 
 st.set_page_config(layout="wide")
-
+#--------------------------------------
 #Page Background Color-->
 page_bg = """
 <style>
@@ -34,7 +34,7 @@ page_bg = """
 </style>
 """
 st.markdown(page_bg, unsafe_allow_html=True)
-
+#--------------------------------------
 #Image Icons Display-->
 image_path = "Scope.jpeg"
 
@@ -44,7 +44,7 @@ if os.path.exists(image_path):
     st.image(img, use_column_width=False)
 else:
     st.error(f"Image not found: {image_path}")
-
+#--------------------------------------
 #CSS Style Button-->
 st.markdown("""
 <style>
@@ -64,28 +64,44 @@ div.stButton > button:hover {
 }
 </style>
 """, unsafe_allow_html=True)
-
+#--------------------------------------
 #Metric Cards Customization-->
+# CSS for colorful metric cards
 st.markdown("""
 <style>
+
+/* Metric card box */
 [data-testid="metric-container"] {
-    background-color: #FFE4E1;
-    border: 2px solid #FFC0CB;
+    background-color: #FFD1DC;
+    border: 2px solid #FFB6C1;
     padding: 20px;
-    border-radius: 15px;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    border-radius: 18px;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.15);
 }
 
+/* KPI title */
 [data-testid="metric-container"] label {
-    color: black !important;
+    color: #6A1B4D !important;
     font-size: 18px !important;
+    font-weight: bold;
 }
 
-[data-testid="metric-container"] div {
+/* KPI value */
+[data-testid="metric-container"] [data-testid="stMetricValue"] {
     color: #C2185B !important;
+    font-size: 30px !important;
+    font-weight: bold;
 }
+
+/* Delta value */
+[data-testid="stMetricDelta"] {
+    font-size: 18px !important;
+    font-weight: bold;
+}
+
 </style>
 """, unsafe_allow_html=True)
+#--------------------------------------
 
 #df = pd.read_excel('/content/sample_data/HHS_Unaccompanied_Alien_Children_Program.xlsx')
 df = pd.read_excel('HHS_Unaccompanied_Alien_Children_Program.xlsx', engine='openpyxl')
@@ -101,48 +117,6 @@ st.markdown("<h2 style='text-align: center;'> Project-1: HEALTHCARE Analytics</h
 st.write("***📌US-HHS Unaccompanied Children Program  Dashboard***")
 
 st.dataframe(df)
-
-
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    st.markdown("""
-    <div style="
-        background-color:#FFD1DC;
-        padding:20px;
-        border-radius:15px;
-        text-align:center;
-        box-shadow:2px 2px 8px gray;">
-        <h4>Total Sales</h4>
-        <h2>₹50,000</h2>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col2:
-    st.markdown("""
-    <div style="
-        background-color:#E6E6FA;
-        padding:20px;
-        border-radius:15px;
-        text-align:center;
-        box-shadow:2px 2px 8px gray;">
-        <h4>Customers</h4>
-        <h2>1,250</h2>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col3:
-    st.markdown("""
-    <div style="
-        background-color:#D8BFD8;
-        padding:20px;
-        border-radius:15px;
-        text-align:center;
-        box-shadow:2px 2px 8px gray;">
-        <h4>Profit</h4>
-        <h2>₹12,500</h2>
-    </div>
-    """, unsafe_allow_html=True)
 
 st.write("***EXPLORATORY DATA ANALYSIS***")
 try:
