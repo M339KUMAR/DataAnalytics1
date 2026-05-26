@@ -41,9 +41,9 @@ image_path2 = "graph_bar-chart.jpeg"
 
 if os.path.exists(image_path1) & os.path.exists(image_path2):
     img1 = Image.open(image_path1)
-    img1 = img1.resize((250, 100))
+    img1 = img1.resize((300, 150))
     img2 = Image.open(image_path2)
-    img2 = img2.resize((250,100)) 
+    img2 = img2.resize((300,150)) 
  
     # st.image([img1,img2] use_column_width=False)
     col1, col2, col3 = st.columns(3, gap="small")
