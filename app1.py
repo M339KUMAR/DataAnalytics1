@@ -24,9 +24,9 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 st.set_page_config(layout="wide")
 
 st.image(
-    #"images.jpeg",
+    "images.jpeg",
     #use_column_width=True,
-    #width = 500,
+    width = 500,
     #height=100
 )
 
