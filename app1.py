@@ -15,6 +15,8 @@ from ydata_profiling import ProfileReport
 #from data_profiling.profile_report import ProfileReport
 import streamlit.components.v1 as components
 #import base64
+from PIL import Image
+import os
 
 #from sklearn.linear_model import LinearRegression
 #from sklearn.model_selection import train_test_split
@@ -31,6 +33,14 @@ page_bg = """
 </style>
 """
 st.markdown(page_bg, unsafe_allow_html=True)
+
+image_path = "images.jpeg"
+
+if os.path.exists(image_path):
+    img = Image.open(image_path)
+    st.image(img, use_column_width=True)
+else:
+    st.error(f"Image not found: {image_path}")
 
 st.markdown("""
 <style>
