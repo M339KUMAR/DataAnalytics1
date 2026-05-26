@@ -795,7 +795,7 @@ if st.button(
 
         for err in error_messages:
             st.write("Please Train Model")
-            st.error("❌"err)
+            st.error("❌",err)
     
  
     #else:
