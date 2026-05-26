@@ -39,39 +39,19 @@ st.markdown(page_bg, unsafe_allow_html=True)
 image_path1 = "Scope.jpeg"
 image_path2 = "graph_bar-chart.jpeg"
 
-def get_base64(image_path):
-    with open(image_path, "rb") as f:
-        return base64.b64encode(f.read()).decode()
-
 if os.path.exists(image_path1) & os.path.exists(image_path2):
     img1 = Image.open(image_path1)
     #img1 = img1.resize((50, 50))
     img2 = Image.open(image_path2)
     #img2 = img2.resize((50,50))
-
-    img1 = get_base64(img1)
-    img2 = get_base64(img2)
+ 
     # st.image([img1,img2] use_column_width=False)
-    #col1, col2, col3 = st.columns([0.5,0.5,8])
-    #with col1:
-        #st.image(img1, use_column_width=False)
-    #with col2:
-        #st.image(img2, use_column_width=False)
-    st.markdown(
-        f"""
-        <div style="
-            display:flex;
-            align-items:center;
-            gap:10px;
-        ">
-            <img src="data:image/jpeg;base64,{img1}"
-                 width="60">
+    col1, col2, col3 = st.columns([0.5,0.5,8])
+    with col1:
+        st.image(img1, use_column_width=False)
+    with col2:
+        st.image(img2, use_column_width=False)
 
-            <img src="data:image/jpeg;base64,{img2}"
-                 width="60">
-        </div>
-        """,
-        unsafe_allow_html=True)
 else:
     st.error(f"Image not found: {image_path}")
 #--------------------------------------
