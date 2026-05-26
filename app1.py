@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 from ydata_profiling import ProfileReport
 #from data_profiling.profile_report import ProfileReport
 import streamlit.components.v1 as components
-import base64
+#import base64
 
 #from sklearn.linear_model import LinearRegression
 #from sklearn.model_selection import train_test_split
@@ -23,30 +23,12 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 
 st.set_page_config(layout="wide")
 
-#st.image(
+st.image(
     #"images.jpeg",
     #use_column_width=True,
-    #width = 200,
+    #width = 500,
     #height=100
-#)
-def get_base64(image_path):
-    with open(image_path, "rb") as img:
-        return base64.b64encode(img.read()).decode()
-
-img = get_base64("images.jpeg")
-
-# Set repeating background
-page_bg = f"""
-<style>
-[data-testid="stAppViewContainer"] {{
-    background-image: url("data:image/png;base64,{img}");
-    background-repeat: repeat;
-    background-size: 120px 120px;
-}}
-</style>
-"""
-
-st.markdown(page_bg, unsafe_allow_html=True)
+)
 
 #df = pd.read_excel('/content/sample_data/HHS_Unaccompanied_Alien_Children_Program.xlsx')
 df = pd.read_excel('HHS_Unaccompanied_Alien_Children_Program.xlsx', engine='openpyxl')
