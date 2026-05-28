@@ -23,7 +23,7 @@ import os
 
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 
-st.set_page_config(set_title ='Healthcare Analytics Dashboard',layout="wide")
+st.set_page_config(page_title ='Healthcare Analytics Dashboard',layout="wide")
 #--------------------------------------
 #Page Background Color-->
 page_bg = """
