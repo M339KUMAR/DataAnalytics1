@@ -34,6 +34,35 @@ page_bg = """
 </style>
 """
 st.markdown(page_bg, unsafe_allow_html=True)
+#--------------------------------------------
+st.markdown("""
+<style>
+
+/* Move page navigation downward */
+[data-testid="stSidebarNav"] {
+    padding-top: 110px;
+}
+
+/* Add icon + text together at top */
+[data-testid="stSidebarNav"]::before {
+    content: "HEALTHCARE Analytics";
+    white-space: pre-line;
+    display: block;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 900 !important;
+    padding-top: 120px;
+    margin-bottom: 0px;
+
+    background-image: url("https://github.com/M339KUMAR/DataAnalytics1/blob/main/MedPlus.jpg");
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 125px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+#--------------------------------------------
 #--------------------------------------
 #Image Icons Display-->
 image_path1 = "SScope.jpeg"
