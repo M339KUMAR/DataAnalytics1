@@ -35,33 +35,44 @@ page_bg = """
 """
 st.markdown(page_bg, unsafe_allow_html=True)
 #--------------------------------------------
-st.markdown("""
-<style>
+#st.markdown("""
+#<style>
 
-/* Move page navigation downward */
-[data-testid="stSidebarNav"] {
-    padding-top: 20px;
-}
+#/* Move page navigation downward */
+#[data-testid="stSidebarNav"] {
+#    padding-top: 20px;
+#}
 
-/* Add icon + text together at top */
-[data-testid="stSidebarNav"]::before {
-    content: "HEALTHCARE Analytics";
-    white-space: pre-line;
-    display: block;
-    text-align: center;
-    font-size: 24px;
-    font-weight: 900 !important;
-    padding-top: 140px;
-    margin-bottom: 5px;
+#/* Add icon + text together at top */
+#[data-testid="stSidebarNav"]::before {
+#    content: "HEALTHCARE Analytics";
+#    white-space: pre-line;
+#    display: block;
+#    text-align: center;
+#    font-size: 24px;
+#    font-weight: 900 !important;
+#    padding-top: 140px;
+#    margin-bottom: 5px;
 
-    background-image: url("https://raw.githubusercontent.com/M339KUMAR/DataAnalytics1/main/MedPlus.jpg");
-    background-repeat: no-repeat;
-    background-position: top center;
-    background-size: 125px;
-}
+#    background-image: url("https://raw.githubusercontent.com/M339KUMAR/DataAnalytics1/main/MedPlus.jpg");
+#    background-repeat: no-repeat;
+#    background-position: top center;
+#    background-size: 125px;
+#}
 
-</style>
-""", unsafe_allow_html=True)
+#</style>
+#""", unsafe_allow_html=True)
+
+st.sidebar.markdown(
+    """
+    <div style="text-align:center;">
+        <img src="https://raw.githubusercontent.com/M339KUMAR/DataAnalytics1/main/MedPlus.jpg" width="120">
+        <h3>HEALTHCARE Analytics</h3>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 #--------------------------------------------
 #--------------------------------------
 #Image Icons Display-->
