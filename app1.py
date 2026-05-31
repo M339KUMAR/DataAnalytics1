@@ -54,7 +54,7 @@ st.markdown("""
     padding-top: 120px;
     margin-bottom: 0px;
 
-    background-image: url("https://github.com/M339KUMAR/DataAnalytics1/blob/main/MedPlus.jpg");
+    background-image: url("https://raw.githubusercontent.com/M339KUMAR/DataAnalytics1/main/MedPlus.jpg");
     background-repeat: no-repeat;
     background-position: top center;
     background-size: 125px;
