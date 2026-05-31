@@ -40,7 +40,7 @@ st.markdown("""
 
 /* Move page navigation downward */
 [data-testid="stSidebarNav"] {
-    padding-top: 110px;
+    padding-top: 20px;
 }
 
 /* Add icon + text together at top */
@@ -51,8 +51,8 @@ st.markdown("""
     text-align: center;
     font-size: 24px;
     font-weight: 900 !important;
-    padding-top: 120px;
-    margin-bottom: 0px;
+    padding-top: 140px;
+    margin-bottom: 5px;
 
     background-image: url("https://raw.githubusercontent.com/M339KUMAR/DataAnalytics1/main/MedPlus.jpg");
     background-repeat: no-repeat;
