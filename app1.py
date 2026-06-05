@@ -17,6 +17,7 @@ import streamlit.components.v1 as components
 import base64
 from PIL import Image
 import os
+import plotly.express as px
 
 #from sklearn.linear_model import LinearRegression
 #from sklearn.model_selection import train_test_split
@@ -198,14 +199,34 @@ with col1:
     # Create a Matplotlib figure
     #st.pyplot(fig)
     if st.button("Plot-1"):
-       fig, ax = plt.subplots()
-       ax.plot(df['Date'], df['Children in CBP custody'], color='orange', linestyle='--', label="Children in CBP Custody")
-       ax.set_title("Children in CBP Custody")
-       ax.set_xlabel("Date")
-       ax.set_ylabel("CBP Custidy")
-       ax.tick_params(axis='x', rotation=45)
-       ax.legend()
-       st.pyplot(fig)
+       #fig, ax = plt.subplots()
+       #ax.plot(df['Date'], df['Children in CBP custody'], color='orange', linestyle='--', label="Children in CBP Custody")
+       #ax.set_title("Children in CBP Custody")
+       #ax.set_xlabel("Date")
+       #ax.set_ylabel("CBP Custidy")
+       #ax.tick_params(axis='x', rotation=45)
+       #ax.legend()
+       #st.pyplot(fig)
+       fig = px.line(
+             df,
+             x="Date",
+             y="Children in CBP custody",
+             markers=True,
+             title="Children in CBP Custody"
+             )
+
+       fig.update_traces(
+             line_color="orange",
+             line_dash="dash"
+             )
+
+       fig.update_layout(
+             xaxis_title="Date",
+             yaxis_title="CBP Custody",
+             hovermode="x unified"
+             )
+
+       st.plotly_chart(fig, use_container_width=True)
 
 with col2:
     st.write("Click the PLOT Button to Display the Date vs Children in CBP Custody Graph")
