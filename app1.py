@@ -193,7 +193,7 @@ finally :
 #st.dataframe(df['Date'])
 st.title("📊 HHS Care System Dashboard")
 
-col1, col2 = st.columns([0.75, 5])
+col1, col2 = st.columns([2, 5])
 
 with col1:
     # Create a Matplotlib figure
