@@ -891,13 +891,13 @@ if st.button(
 
 #model = train_model()
 
-st.write("****Tableau Dashboard***")
-st.write("------------------------------------")
-st.write("*****PRAVEENKUMAR MOPURU*****")
-st.write("*****UMID20032685175*****")
-st.write("*****Data Analyst Intern*****")
-st.write("*****25th March 2026 Batch*****")
-st.write("------------------------------------")
+#st.write("****Tableau Dashboard***")
+#st.write("------------------------------------")
+#st.write("*****PRAVEENKUMAR MOPURU*****")
+#st.write("*****UMID20032685175*****")
+#st.write("*****Data Analyst Intern*****")
+#st.write("*****25th March 2026 Batch*****")
+#st.write("------------------------------------")
 
 
 #This automatically restricts input to integers and avoids
