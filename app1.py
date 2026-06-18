@@ -891,13 +891,13 @@ if st.button(
 
 #model = train_model()
 
-st.write("****Tableau Dashboard***")
+st.write("***Tableau Dashboard***")
 
 tableau_url = "https://public.tableau.com/views/USHHSUAC/Dashboard1?:showVizHome=no&:embed=yes"
 
 st.components.v1.iframe(
     tableau_url,
-    height=800,
+    height=1000,
     scrolling=True
 )
 #st.write("------------------------------------")
