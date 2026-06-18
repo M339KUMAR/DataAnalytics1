@@ -891,7 +891,15 @@ if st.button(
 
 #model = train_model()
 
-#st.write("****Tableau Dashboard***")
+st.write("****Tableau Dashboard***")
+
+tableau_url = "https://public.tableau.com/views/USHHSUAC/Dashboard1?:showVizHome=no&:embed=yes"
+
+st.components.v1.iframe(
+    tableau_url,
+    height=800,
+    scrolling=True
+)
 #st.write("------------------------------------")
 #st.write("*****PRAVEENKUMAR MOPURU*****")
 #st.write("*****UMID20032685175*****")
