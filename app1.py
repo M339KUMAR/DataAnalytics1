@@ -188,7 +188,7 @@ st.write("***EXPLORATORY DATA ANALYSIS***")
 #except ValueError: 
 #   st.write("Issue in Report Generation:")
 #finally :
-   st.write("Generating EDA Report..")
+st.write("Generating EDA Report..")
 
 #st.dataframe(df['Date'])
 st.title("📊 HHS Care System Dashboard")
