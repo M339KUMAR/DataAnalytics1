@@ -172,22 +172,22 @@ st.write("***📌US-HHS Unaccompanied Children Program  Dashboard***")
 st.dataframe(df)
 
 st.write("***EXPLORATORY DATA ANALYSIS***")
-try:
+#try:
    #from ydata_profiling import ProfileReport
-   report = ProfileReport(df, explorative=True)
+#   report = ProfileReport(df, explorative=True)
    # Save report
    #profile.to_file("report.html")
-   html = report.to_html()
+#   html = report.to_html()
 
    # Read HTML file
    #with open("report.html", "r", encoding="utf-8") as f:
    #     html = f.read()
 
    # Display in Streamlit
-   components.html(html, height=1000, scrolling=True)
-except ValueError: 
-   st.write("Issue in Report Generation:")
-finally :
+#   components.html(html, height=1000, scrolling=True)
+#except ValueError: 
+#   st.write("Issue in Report Generation:")
+#finally :
    st.write("Generating EDA Report..")
 
 #st.dataframe(df['Date'])
