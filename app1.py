@@ -11,7 +11,9 @@ import pandas as pd
 import numpy as np
 import openpyxl
 import matplotlib.pyplot as plt
-from ydata_profiling import ProfileReport
+
+#from ydata_profiling import ProfileReport
+
 #from data_profiling.profile_report import ProfileReport
 import streamlit.components.v1 as components
 import base64
